@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Once Upon A Shelf - Books</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Trebuchet MS', Arial, sans-serif;
+                background-color: #FDF5F2;
+                color: #2B2B2B;
+                margin: 0;
+                padding: 0;
+            }
+
+            .header {
+                background-color: #FDF5F2;
+                border-bottom: 1px solid #EFE0DA;
+                position: relative;
+            }
+
+            .nav-bar {
+                max-width: 1140px;
+                margin: 0 auto;
+                padding: 12px 18px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .nav-left,
+            .nav-right {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+            }
+
+            .icon-btn {
+                text-decoration: none;
+                color: #2B2B2B;
+                font-size: 20px;
+                line-height: 1;
+                cursor: pointer;
+                background: none;
+                border: none;
+                padding: 2px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .icon-btn:hover {
+                color: #D95338;
+            }
+
+            .icon-btn:hover svg {
+                stroke: #D95338;
+            }
+
+            .bag-icon {
+                width: 18px;
+                height: 18px;
+                stroke: #2B2B2B;
+                fill: none;
+            }
+
+            .brand {
+                text-align: center;
+                text-decoration: none;
+                color: #2B2B2B;
+                font-family: Georgia, serif;
+                line-height: 1.1;
+            }
+
+            .brand-top {
+                display: block;
+                font-size: 15px;
+            }
+
+            .brand-bottom {
+                display: block;
+                font-size: 19px;
+                font-style: italic;
+                color: #D95338;
+            }
+
+            #menu-toggle {
+                display: none;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                background-color: #FBECE6;
+                border-top: 1px solid #EFE0DA;
+                padding: 10px 18px;
+                gap: 8px;
+            }
+
+            #menu-toggle:checked ~ .nav-links {
+                display: flex;
+            }
+
+            .nav-links a {
+                text-decoration: none;
+                color: #2B2B2B;
+                font-size: 14px;
+                font-weight: bold;
+                padding: 6px 8px;
+                border-radius: 6px;
+            }
+
+            .nav-links a:hover,
+            .nav-links a.active {
+                color: #D95338;
+            }
+
+            .books-hero {
+                position: relative;
+                background-color: #F3DDD5;
+                padding: 34px 18px;
+                overflow: hidden;
+            }
+
+            .books-hero-bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                opacity: 0.25;
+                z-index: 0;
+                pointer-events: none;
+            }
+
+            .books-hero-wrap {
+                position: relative;
+                z-index: 1;
+                max-width: 1140px;
+                margin: 0 auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 24px;
+            }
+
+            .books-hero-text {
+                text-align: center;
+                max-width: 460px;
+            }
+
+            .hero-kicker {
+                font-size: 11px;
+                letter-spacing: 2px;
+                color: #7D6D67;
+                margin: 0 0 8px 0;
+                text-transform: uppercase;
+            }
+
+            .books-hero-title {
+                font-size: 28px;
+                line-height: 1.2;
+                margin: 0 0 18px 0;
+                color: #1F1B18;
+            }
+
+            .hero-actions {
+                display: inline-flex;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .see-more-btn {
+                display: inline-block;
+                background-color: #1F1B18;
+                color: #FFFFFF;
+                text-decoration: none;
+                padding: 10px 26px;
+                border-radius: 22px;
+                font-size: 13px;
+                font-weight: bold;
+            }
+
+            .see-more-btn:hover {
+                background-color: #D95338;
+            }
+
+            #search-toggle {
+                display: none;
+            }
+
+            .hero-search-icon {
+                font-size: 22px;
+                color: #1F1B18;
+                cursor: pointer;
+                line-height: 1;
+            }
+
+            .hero-search-icon:hover {
+                color: #D95338;
+            }
+
+            .search-bar-wrap {
+                display: none;
+                padding: 14px 16px;
+                background-color: #FBECE6;
+                border-bottom: 1px solid #EFE0DA;
+            }
+
+            #search-toggle:checked ~ .search-bar-wrap {
+                display: block;
+            }
+
+            .search-form {
+                max-width: 860px;
+                margin: 0 auto;
+                display: flex;
+                gap: 8px;
+            }
+
+            .search-input {
+                flex: 1;
+                padding: 12px 18px;
+                border: 1px solid #E5D1C9;
+                border-radius: 22px;
+                background-color: #FFFFFF;
+                color: #2B2B2B;
+                font-family: 'Trebuchet MS', Arial, sans-serif;
+                font-size: 15px;
+            }
+
+            .search-btn {
+                padding: 12px 24px;
+                border: none;
+                border-radius: 22px;
+                background-color: #E04F33;
+                color: #FFFFFF;
+                font-family: 'Trebuchet MS', Arial, sans-serif;
+                font-size: 14px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .featured-fan {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .fan-book {
+                border-radius: 4px;
+                object-fit: cover;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                display: block;
+            }
+
+            .fan-outer {
+                width: 65px;
+                height: 98px;
+                z-index: 1;
+            }
+
+            .fan-mid {
+                width: 82px;
+                height: 124px;
+                margin: 0 -16px;
+                z-index: 2;
+            }
+
+            .fan-center {
+                width: 105px;
+                height: 158px;
+                z-index: 3;
+            }
+
+            .genre-strip {
+                background-color: #F05336;
+                padding: 14px 16px;
+            }
+
+            .genre-strip-wrap {
+                max-width: 1140px;
+                margin: 0 auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .arrow-circle {
+                width: 28px;
+                height: 28px;
+                border: 1px solid #FBECE6;
+                border-radius: 50%;
+                color: #FBECE6;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 13px;
+            }
+
+            .arrow-circle:hover {
+                background-color: #FDF5F2;
+                color: #D95338;
+            }
+
+            .genre-pill {
+                background-color: #FDF5F2;
+                color: #1F1B18;
+                text-decoration: none;
+                padding: 7px 18px;
+                border-radius: 20px;
+                font-size: 13px;
+                font-weight: bold;
+            }
+
+            .genre-pill:hover {
+                background-color: #1F1B18;
+                color: #FFFFFF;
+            }
+
+            .container {
+                max-width: 1140px;
+                margin: 0 auto;
+                padding: 26px 16px 10px 16px;
+            }
+
+            .section-label {
+                font-size: 16px;
+                margin: 0 0 14px 0;
+                color: #1F1B18;
+                font-weight: bold;
+            }
+
+            .books-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+
+            .book-card {
+                background-color: #FBECE6;
+                border: 1px solid #ECD8D0;
+                border-radius: 12px;
+                padding: 12px;
+                text-decoration: none;
+                color: #2B2B2B;
+                display: block;
+            }
+
+            .book-card img {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 2 / 3;
+                min-height: 160px;
+                object-fit: cover;
+                border-radius: 8px;
+                background-color: #F6DDD3;
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .book-title {
+                font-weight: bold;
+                font-size: 13px;
+                margin: 0 0 4px 0;
+                color: #1F1B18;
+            }
+
+            .book-price {
+                font-size: 12px;
+                color: #D95338;
+                font-weight: bold;
+                margin: 0;
+            }
+
+            .footer {
+                background-color: #9E9E9E;
+                color: #FDF5F2;
+                text-align: center;
+                padding: 26px 16px;
+                margin-top: 32px;
+                font-size: 12px;
+                line-height: 1.7;
+            }
+
+            .footer a {
+                color: #FFFFFF;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+            .social-links {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 14px;
+                margin: 10px 0;
+            }
+
+            .social-btn {
+                width: 30px;
+                height: 30px;
+                border: 1px solid #FFFFFF;
+                border-radius: 50%;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .social-icon {
+                width: 14px;
+                height: 14px;
+                stroke: #FFFFFF;
+                fill: none;
+            }
+
+            .copyright {
+                margin-top: 8px;
+                font-size: 12px;
+                color: #FDF5F2;
+            }
+
+            @media (min-width: 768px) {
+                .nav-bar {
+                    padding: 16px 28px;
+                }
+
+                .nav-links {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    background-color: transparent;
+                    border-top: none;
+                    padding: 0 0 12px 0;
+                    gap: 24px;
+                }
+
+                .books-hero {
+                    padding: 46px 36px;
+                }
+
+                .books-hero-wrap {
+                    flex-direction: row;
+                    justify-content: space-between;
+                    text-align: left;
+                }
+
+                .books-hero-text {
+                    text-align: left;
+                }
+
+                .books-hero-title {
+                    font-size: 36px;
+                }
+
+                .fan-outer {
+                    width: 85px;
+                    height: 128px;
+                }
+
+                .fan-mid {
+                    width: 108px;
+                    height: 162px;
+                    margin: 0 -22px;
+                }
+
+                .fan-center {
+                    width: 135px;
+                    height: 202px;
+                }
+
+                .section-label {
+                    font-size: 18px;
+                    margin-bottom: 16px;
+                }
+
+                .books-grid {
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 18px;
+                }
+
+                .book-card img {
+                    min-height: 240px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <header class="header">
+            <input type="checkbox" id="menu-toggle" />
+
+            <div class="nav-bar">
+                <div class="nav-left">
+                    <label for="menu-toggle" class="icon-btn" title="Menu">&#9776;</label>
+                </div>
+
+                <a href="index.html" class="brand">
+                    <span class="brand-top">Once Upon</span>
+                    <span class="brand-bottom">A Shelf</span>
+                </a>
+
+                <div class="nav-right">
+                    <a href="books.html" class="icon-btn" title="Favorites">&#9825;</a>
+                    <a href="books.html" class="icon-btn" title="Bag">
+                        <svg class="bag-icon" viewBox="0 0 24 24" stroke-width="1.8">
+                            <path d="M6 7h12l1 13H5L6 7z" />
+                            <path d="M9 7V5a3 3 0 0 1 6 0v2" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="books.html" class="active">Books</a>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact Us</a>
+            </nav>
+        </header>
+
+        <input type="checkbox" id="search-toggle" />
+
+        <section class="books-hero">
+            <img src="books-bg.jpg" class="books-hero-bg" alt="" />
+
+            <div class="books-hero-wrap">
+                <div class="books-hero-text">
+                    <p class="hero-kicker">ONCE UPON A SHELF</p>
+                    <h1 class="books-hero-title">Featured Books of December</h1>
+                    <div class="hero-actions">
+                        <a href="#bestselling" class="see-more-btn">See More</a>
+                        <label for="search-toggle" class="hero-search-icon" title="Search">&#8981;</label>
+                    </div>
+                </div>
+
+                <div class="featured-fan">
+                    <img src="TSAONGAF.jpg" class="fan-book fan-outer" alt="Featured book 1" />
+                    <img src=atomic-habits.jpg" class="fan-book fan-mid" alt="Featured book 2" />
+                    <img src="i-could-give-you-the-moon.jpg" class="fan-book fan-center" alt="Featured book 3" />
+                    <img src="theletthentheory.jpg" class="fan-book fan-mid" alt="Featured book 4" />
+                    <img src="thebookthief.jpg" class="fan-book fan-outer" alt="Featured book 5" />
+                </div>
+            </div>
+        </section>
+
+        <div class="search-bar-wrap">
+            <form class="search-form" action="books.html" method="get">
+                <input type="text" name="q" class="search-input" placeholder="Search books, authors, or categories..." />
+                <button type="submit" class="search-btn">Search</button>
+            </form>
+        </div>
+
+        <section class="genre-strip">
+            <div class="genre-strip-wrap">
+                <a href="#bestselling" class="arrow-circle" title="Previous">&larr;</a>
+                <a href="#psychology" class="genre-pill">Psychology</a>
+                <a href="#scifi" class="genre-pill">Sci-Fi</a>
+                <a href="#mystery" class="genre-pill">Mystery &amp; Thriller</a>
+                <a href="#children" class="genre-pill">Children's Book</a>
+                <a href="#personal" class="genre-pill">Personal Development</a>
+                <a href="#grab-today" class="arrow-circle" title="Next">&rarr;</a>
+            </div>
+        </section>
+
+        <div class="container" id="bestselling">
+            <h2 class="section-label">Bestselling Books</h2>
+            <div class="books-grid">
+                <a href="books.html" class="book-card">
+                    <img src="thesevenyearslip.jpg" alt="The Seven Years Slip" />
+                    <p class="book-title">The Seven Years Slip</p>
+                    <p class="book-price">&#8369;450.00</p>
+                </a>
+                <a href="books.html" class="book-card">
+                    <img src="theletthentheory.jpg" alt="The Let Them Theory" />
+                    <p class="book-title">The Let Them Theory</p>
+                    <p class="book-price">&#8369;490.00</p>
+                </a>
+                <a href="books.html" class="book-card">
+                    <img src="thepsychofmoney.jpg" alt="The Psychology of Money" />
+                    <p class="book-title">The Psychology of Money</p>
+                    <p class="book-price">&#8369;520.00</p>
+                </a>
+                <a href="books.html" class="book-card">
+                    <img src="TSAONGAF.jpg" alt="The Subtle Art of Not Giving a F*ck" />
+                    <p class="book-title">The Subtle Art of Not Giving a F*ck</p>
+                    <p class="book-price">&#8369;480.00</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="container" id="grab-today">
+            <h2 class="section-label">Grab your book today!</h2>
+            <div class="books-grid">
+                <a href="books.html" class="book-card">
+                    <img src="sunrise-on-the-reaping.jpg" alt="Sunrise on the Reaping" />
+                    <p class="book-title">Sunrise on the Reaping</p>
+                    <p class="book-price">&#8369;450.00</p>
+                </a>
+                <a href="books.html" class="book-card">
+                    <img src="TheBoyInStripedPyjamas.jpg" alt="The Boy in the Striped Pyjamas" />
+                    <p class="book-title">The Boy in the Striped Pyjamas</p>
+                    <p class="book-price">&#8369;490.00</p>
+                </a>
+                <a href="books.html" class="book-card">
+                    <img src="TheKiteRunner.jpg" alt="The Kite Runner" />
+                    <p class="book-title">The Kite Runner</p>
+                    <p class="book-price">&#8369;520.00</p>
+                </a>
+                <a href="books.html" class="book-card">
+                    <img src="TheMountainIsYou.jpg" alt="The Mountain is You" />
+                    <p class="book-title">The Mountain is You</p>
+                    <p class="book-price">&#8369;480.00</p>
+                </a>
+                <a href="books.html" class="book-card">
+                    <img src="ItEndsWithUs.jpg" alt="It Ends With Us" />
+                    <p class="book-title">It Ends With Us</p>
+                    <p class="book-price">&#8369;460.00</p>
+                </a>
+                <a href="books.html" class="book-card">
+                    <img src="thecouragetobedisliked.jpg" alt="The Courage to Be Disliked" />
+                    <p class="book-title">The Courage to Be Disliked</p>
+                    <p class="book-price">&#8369;490.00</p>
+                </a>
+                <a href="books.html" class="book-card">
+                    <img src="thebookthief.jpg" alt="The Book Thief" />
+                    <p class="book-title">The Book Thief</p>
+                    <p class="book-price">&#8369;510.00</p>
+                </a>
+                <a href="books.html" class="book-card">
+                    <img src="prideandprejudice.jpg" alt="Pride and Prejudice" />
+                    <p class="book-title">Pride and Prejudice</p>
+                    <p class="book-price">&#8369;420.00</p>
+                </a>
+            </div>
+        </div>
+
+        <footer class="footer">
+            Once Upon A Shelf &mdash; Handpicked books without the rush.<br />
+            <a href="index.html">Home</a> &bull;
+            <a href="books.html">Books</a> &bull;
+            <a href="about.html">About Us</a> &bull;
+            <a href="contact.html">Contact Us</a>
+
+            <div class="social-links">
+                <a href="https://facebook.com" target="_blank" rel="noopener" class="social-btn" title="Facebook" aria-label="Facebook">
+                    <svg class="social-icon" viewBox="0 0 24 24" stroke-width="2">
+                        <path d="M15 3h-3a5 5 0 0 0-5 5v3H4v4h3v6h4v-6h3l1-4h-4V8a1 1 0 0 1 1-1h3z" />
+                    </svg>
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener" class="social-btn" title="Twitter" aria-label="Twitter">
+                    <svg class="social-icon" viewBox="0 0 24 24" stroke-width="2">
+                        <path d="M22 5.8a8.4 8.4 0 0 1-2.4.7 4.2 4.2 0 0 0 1.8-2.3 8.3 8.3 0 0 1-2.6 1 4.2 4.2 0 0 0-7.1 3.8A11.8 11.8 0 0 1 3.1 4.8a4.2 4.2 0 0 0 1.3 5.6 4.1 4.1 0 0 1-1.9-.5v.1a4.2 4.2 0 0 0 3.4 4.1 4.2 4.2 0 0 1-1.9.1 4.2 4.2 0 0 0 3.9 2.9A8.4 8.4 0 0 1 2 18.3a11.8 11.8 0 0 0 6.4 1.9c7.7 0 11.9-6.4 11.9-11.9v-.5A8.5 8.5 0 0 0 22 5.8z" />
+                    </svg>
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noopener" class="social-btn" title="Instagram" aria-label="Instagram">
+                    <svg class="social-icon" viewBox="0 0 24 24" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="5" />
+                        <circle cx="12" cy="12" r="4" />
+                        <circle cx="17.5" cy="6.5" r="1" />
+                    </svg>
+                </a>
+            </div>
+
+            <div class="copyright">&copy; Once Upon A Shelf 2026. All rights reserved.</div>
+        </footer>
+    </body>
+</html>

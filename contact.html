@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us — Once Upon A Shelf</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Trebuchet MS', Arial, sans-serif;
+            background-color: #FDF5F2;
+            color: #2B2B2B;
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .header {
+            background-color: #FBF1EE;
+            border-bottom: 1px solid #EFE2DD;
+            position: relative;
+        }
+
+        #menu-toggle {
+            display: none;
+        }
+
+        .nav-bar {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-icon {
+            font-size: 20px;
+            cursor: pointer;
+            color: #2B2B2B;
+            line-height: 1;
+        }
+
+        .brand {
+            font-family: Georgia, serif;
+            font-size: 20px;
+            color: #222222;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
+        }
+
+        .brand span {
+            font-style: italic;
+            color: #E04F33;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: #2B2B2B;
+        }
+
+        .icon-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #2B2B2B;
+        }
+
+        .icon-link:hover {
+            color: #E04F33;
+        }
+
+        .nav-links {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            padding: 14px 20px 18px;
+            background-color: #FBF1EE;
+            border-top: 1px solid #EFE2DD;
+        }
+
+        .nav-links a {
+            font-size: 13px;
+            color: #333333;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #E04F33;
+            font-weight: 700;
+        }
+
+        #menu-toggle:checked ~ .nav-links {
+            display: flex;
+        }
+
+        .contact-hero {
+            background-color: #F7EAE5;
+            border-bottom: 1px solid #EAD8D1;
+            padding: 36px 20px;
+        }
+
+        .contact-hero-wrap {
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+
+        .contact-kicker {
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #D95338;
+            font-weight: 700;
+            margin: 0 0 8px;
+        }
+
+        .contact-title {
+            font-family: Georgia, serif;
+            font-size: 28px;
+            line-height: 1.25;
+            color: #222222;
+            margin: 0 0 12px;
+        }
+
+        .contact-lead {
+            font-size: 14px;
+            line-height: 1.65;
+            color: #4A4A4A;
+            margin: 0;
+            max-width: 680px;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 28px 20px 44px;
+        }
+
+        .section-label {
+            font-size: 16px;
+            font-weight: 700;
+            color: #222222;
+            margin: 0 0 14px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+            margin-bottom: 32px;
+        }
+
+        .contact-card {
+            background-color: #FFFFFF;
+            border: 1px solid #EDE0DA;
+            border-radius: 6px;
+            padding: 22px;
+        }
+
+        .contact-card h3 {
+            font-family: Georgia, serif;
+            font-size: 17px;
+            color: #222222;
+            margin: 0 0 10px;
+        }
+
+        .contact-detail {
+            font-size: 13.5px;
+            line-height: 1.65;
+            color: #4D4D4D;
+            margin: 0 0 8px;
+        }
+
+        .contact-detail:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-label {
+            font-weight: 700;
+            color: #222222;
+        }
+
+        .text-link {
+            color: #D95338;
+            font-weight: 700;
+        }
+
+        .text-link:hover {
+            text-decoration: underline;
+        }
+
+        .promo-banner {
+            background-color: #E04F33;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 14px 20px;
+            font-size: 13.5px;
+            font-weight: 600;
+            margin-bottom: 32px;
+        }
+
+        .cta-box {
+            background-color: #F7EAE5;
+            border: 1px solid #EAD8D1;
+            border-radius: 6px;
+            padding: 22px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .cta-box h3 {
+            font-family: Georgia, serif;
+            font-size: 19px;
+            color: #222222;
+            margin: 0 0 4px;
+        }
+
+        .cta-box p {
+            font-size: 13.5px;
+            color: #4D4D4D;
+            margin: 0;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: #D95338;
+            color: #FFFFFF;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: 4px;
+        }
+
+        .cta-btn:hover {
+            background-color: #C2432A;
+        }
+
+        .footer {
+            background-color: #9E9E9E;
+            color: #FFFFFF;
+            padding: 28px 20px 22px;
+            text-align: center;
+        }
+
+        .footer-tagline {
+            font-size: 13px;
+            margin: 0 0 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+            font-size: 12.5px;
+            margin-bottom: 16px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .social-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #FFFFFF;
+            color: #9E9E9E;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .copyright {
+            font-size: 11.5px;
+            color: #F2F2F2;
+            margin: 0;
+        }
+
+        @media (min-width: 768px) {
+            .menu-icon {
+                display: none;
+            }
+
+            .nav-links {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                gap: 28px;
+                padding: 10px 20px 14px;
+                border-top: none;
+            }
+
+            .contact-hero {
+                padding: 48px 20px;
+            }
+
+            .contact-title {
+                font-size: 36px;
+            }
+
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cta-box {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                padding: 26px 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <input type="checkbox" id="menu-toggle" />
+
+        <div class="nav-bar">
+            <div class="nav-left">
+                <label for="menu-toggle" class="menu-icon" aria-label="Toggle menu">&#9776;</label>
+                <a href="index.html" class="brand">Once Upon <span>A Shelf</span></a>
+            </div>
+
+            <div class="nav-right">
+                <a href="books.html" class="icon-link" aria-label="Favorites">&#9825;</a>
+                <a href="books.html" class="icon-link" aria-label="Shopping Bag">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <nav class="nav-links" aria-label="Main Navigation">
+            <a href="index.html">Home</a>
+            <a href="books.html">Books</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html" class="active">Contact Us</a>
+        </nav>
+    </header>
+
+    <section class="contact-hero">
+        <div class="contact-hero-wrap">
+            <p class="contact-kicker">Get In Touch</p>
+            <h1 class="contact-title">We'd love to hear from fellow readers.</h1>
+            <p class="contact-lead">
+                Have a question about a title, a book suggestion for the shelf, or feedback about Once Upon A Shelf? Here is where you can reach our team.
+            </p>
+        </div>
+    </section>
+
+    <main class="container">
+        <h2 class="section-label">Contact Details</h2>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <h3>Direct Channels</h3>
+                <p class="contact-detail"><span class="contact-label">Location:</span> Central, Casiguran, Sorsogon</p>
+                <p class="contact-detail"><span class="contact-label">Email:</span> support@onceuponashelf.ph</p>
+                <p class="contact-detail"><span class="contact-label">Phone:</span> +63 931 007 3023</p>
+                <p class="contact-detail"><span class="contact-label">Support Hours:</span> Monday – Saturday, 9:00 AM – 6:00 PM</p>
+                <p class="contact-detail"><span class="contact-label">Response Window:</span> Within 1–2 business days</p>
+            </div>
+
+            <div class="contact-card">
+                <h3>Book Inquiries &amp; Suggestions</h3>
+                <p class="contact-detail">
+                    Looking for featured picks, bestsellers, or genre recommendations? You can explore our current catalog anytime.
+                </p>
+                <p class="contact-detail">
+                    <a href="books.html" class="text-link">Browse the Books Catalog &rarr;</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="promo-banner">
+            Every great story begins with a single page — explore more titles on our Books page.
+        </div>
+
+        <div class="cta-box">
+            <div>
+                <h3>Want to see what's on the shelf?</h3>
+                <p>Check out featured titles and popular genres in our catalog.</p>
+            </div>
+            <a href="books.html" class="cta-btn">Go to Books</a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p class="footer-tagline">Once Upon A Shelf — Handpicked books without the rush.</p>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="books.html">Books</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+        <div class="social-links">
+            <a href="#" class="social-btn" aria-label="Facebook">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M13.5 22v-8.2h2.8l.4-3.2h-3.2V8.6c0-.9.3-1.6 1.6-1.6h1.7V4.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7v3.2h2.8V22h3.7z"></path>
+                </svg>
+            </a>
+            <a href="#" class="social-btn" aria-label="Twitter">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"></path>
+                </svg>
+            </a>
+            <a href="#" class="social-btn" aria-label="Instagram">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle>
+                </svg>
+            </a>
+        </div>
+        <p class="copyright">&copy; 2026 Once Upon A Shelf. All rights reserved.</p>
+    </footer>
+</body>
+</html>
